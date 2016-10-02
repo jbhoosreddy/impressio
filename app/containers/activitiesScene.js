@@ -5,7 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   Navigator,
-  StyleSheet
+  StyleSheet,
+  Image
 } from 'react-native';
 
 export default class Activities extends Component {
@@ -40,6 +41,11 @@ export default class Activities extends Component {
           <Text>Add Image</Text>
         </TouchableOpacity>
 
+        <Image
+          style={styles.image}
+          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+        />
+
         <Text style={styles.label}>Caption</Text>
         <TextInput
           style={styles.input}
@@ -62,6 +68,8 @@ const styles = StyleSheet.create({
   tabContent: {
     flex: 1,
     alignItems: 'center',
+    padding: 10,
+    flexDirection: 'column'
   },
   label: {
     marginTop: 20,
@@ -69,10 +77,11 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 20,
-    fontSize: 45,
+    fontSize: 20,
     height: 40,
     borderColor: 'gray',
     borderWidth: 1,
+    paddingLeft: 10,
   },
   buttonWrapper: {
     backgroundColor: '#03C799',
@@ -82,5 +91,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     padding: 20,
     overflow: 'hidden',
+  },
+  image: {
+    width: 200,
+    height: 200,
+    marginTop: 20
   }
 });
