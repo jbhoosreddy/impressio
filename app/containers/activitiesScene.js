@@ -8,6 +8,9 @@ import {
   StyleSheet,
   Image
 } from 'react-native';
+var Platform = require('react-native').Platform;
+var ImagePicker = require('react-native-image-picker');
+
 
 export default class Activities extends Component {
   static get defaultProps() {
@@ -28,7 +31,51 @@ export default class Activities extends Component {
   }
 
   addImage() {
+    var options = {
+      title: 'Select Avatar',
+      customButtons: [
+        {name: 'fb', title: 'Choose Photo from Facebook'},
+      ],
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
+
+    /**
+     * The first arg is the options object for customization (it can also be null or omitted for default options),
+     * The second arg is the callback which sends object: response (more info below in README)
+     */
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
+        // You can display the image using either data...
+        const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
+
+        // or a reference to the platform specific asset location
+        if (Platform.OS === 'ios') {
+          const source = {uri: response.uri.replace('file://', ''), isStatic: true};
+        } else {
+          const source = {uri: response.uri, isStatic: true};
+        }
+
+        this.setState({
+          avatarSource: source
+        });
+      }
+    });
     console.log('add image onclick');
+
   }
 
   render() {
@@ -40,11 +87,8 @@ export default class Activities extends Component {
         <TouchableOpacity style={styles.buttonWrapper} onPress={() => this.addImage()}>
           <Text>Add Image</Text>
         </TouchableOpacity>
-
-        <Image
-          style={styles.image}
-          source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
-        />
+        
+        <Image source={this.state.avatarSource} style={styles.image} />
 
         <Text style={styles.label}>Caption</Text>
         <TextInput
