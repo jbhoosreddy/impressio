@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Counter from '../components/counter';
+import Thumbnail from '../components/thumbnail';
 import {
   View,
   Text,
@@ -20,21 +21,26 @@ class Home extends Component {
     const { actions, state } = this.props;
 
     return (
-      <Counter
-        counter={state.count}
-        {...actions} />
+      <View style={styles.app}>
+        <View>
+          <Thumbnail />
+        </View>
+        <View>
+          <View>
+            <Text>Thumbs Up</Text>
+          </View>
+          <View>
+            <Text>Thumbs Down</Text>
+          </View>
+        </View>
+      </View>
     );
   }
 };
 
 const styles = StyleSheet.create({
-  tabContent: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  tabText: {
-    margin: 50,
-    fontSize: 45
+  app: {
+    flexDirection: 'column'
   }
 });
 
