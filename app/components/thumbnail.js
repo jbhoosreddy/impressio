@@ -8,24 +8,16 @@ export default class Thumbnail extends Component {
 
   render() {
     return (
-      <View style={styles.thumbnail}>
-        <Image
-          style={styles.image}
-          source={require('../../lib/images/firefox.jpg')}
-        />
-      </View>
+      <Image
+        style={styles.image}
+        source={require('../../lib/images/firefox.jpg')}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  thumbnail: {
-    alignItems: 'center',
-    marginTop: 20
-  },
   image: {
-    flex: 1,
-    margin: 10,
     maxWidth:400,
     maxHeight: 400
   }

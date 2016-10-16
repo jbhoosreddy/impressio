@@ -5,7 +5,8 @@ import {
   View,
   Text,
   Navigator,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from 'react-native';
 
 import {bindActionCreators} from 'redux';
@@ -22,16 +23,14 @@ class Home extends Component {
 
     return (
       <View style={styles.app}>
-        <View>
-          <Thumbnail />
-        </View>
-        <View>
-          <View>
-            <Text>Thumbs Up</Text>
-          </View>
-          <View>
-            <Text>Thumbs Down</Text>
-          </View>
+        <Thumbnail />
+        <View style={styles.rating}>
+          <TouchableOpacity style={styles.buttonWrapper}>
+            <Text>Thumbs UP</Text>
+          </TouchableOpacity>
+          <TouchableOpacity  style={styles.buttonWrapper}>
+            <Text>Thumbs DOWN</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -40,8 +39,26 @@ class Home extends Component {
 
 const styles = StyleSheet.create({
   app: {
-    flexDirection: 'column'
-  }
+    flexDirection: 'column',
+    marginTop: 20
+  },
+  thumbnail: {
+    flex: 1
+  },
+  rating: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  buttonWrapper: {
+    backgroundColor: '#03C799',
+    height: 46,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginTop: 20,
+    padding: 20,
+    overflow: 'hidden',
+  },
 });
 
 export default connect(state => ({
