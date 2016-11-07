@@ -8,11 +8,14 @@ import {
   StyleSheet,
   Image
 } from 'react-native';
-var Platform = require('react-native').Platform;
-var ImagePicker = require('react-native-image-picker');
+const Platform = require('react-native').Platform;
+const ImagePicker = require('react-native-image-picker');
 
+import {bindActionCreators} from 'redux';
+import * as counterActions from '../actions/counterActions';
+import { connect } from 'react-redux';
 
-export default class Activities extends Component {
+class Activities extends Component {
   static get defaultProps() {
     return {
       title: 'MyScene'
@@ -27,6 +30,12 @@ export default class Activities extends Component {
     this.state = {
       caption: '',
       tags: ''
+    }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    if (nextState.avatarSource && !this.state.avatarSource || this.state.avatarSource.uri !== nextState.avatarSource.uri) {
+      this.props.actions.uploadImage(nextState.avatarSource.uri);
     }
   }
 
@@ -107,6 +116,14 @@ export default class Activities extends Component {
     );
   }
 };
+
+export default connect(state => ({
+    state: state.counter
+  }),
+  (dispatch) => ({
+    actions: bindActionCreators(counterActions, dispatch)
+  })
+)(Activities);
 
 const styles = StyleSheet.create({
   tabContent: {

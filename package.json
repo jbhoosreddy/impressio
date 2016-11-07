@@ -6,6 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "axios": "^0.15.2",
     "react": "^15.3.2",
     "react-native": "^0.34.0",
     "react-native-image-picker": "^0.22.9",
